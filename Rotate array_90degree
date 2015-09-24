@@ -1,0 +1,39 @@
+//you have a n*n matrix, rearrange the matrix in a way such that matrix is rotated by 90 degree
+#include<stdio.h>
+int main()
+{
+	int i,n,m,j,k;
+	printf("Enter size of array");
+	scanf("%d %d",&m,&n);
+	int a[m][n],b[n][m];
+	for(i=0;i<m;i++)
+		for(j=0;j<n;j++)
+		scanf("%d",&a[i][j]);
+	for(i=0;i<m;i++)
+	{
+		k=m-1-i;
+		for(j=0;j<n;j++)
+		b[j][k]=a[i][j];
+	}
+	printf("\nBefore rotation\n");
+	for(i=0;i<m;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			printf("%d\t",a[i][j]);
+		}
+	printf("\n");
+	}
+	
+	printf("\nAfter 90 degree rotation\n");
+	
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{
+			printf("%d\t",b[i][j]);
+		}
+	printf("\n");
+	}
+	return 0;
+}
