@@ -1,0 +1,71 @@
+//BST
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+struct st *insert(struct st *curr,int ele);
+void printing(struct st *curr);
+
+struct st
+{
+	struct st *left;
+	char data;
+	struct st *ryt;
+}*root;
+
+int main()
+{
+	int ch=1,n,ele;
+	while(ch==1)
+	{
+		printf("Enter 1 to insert\n 2.Delete");
+		scanf("%d",&ch);
+		if(ch==1)
+		{
+			root=NULL;
+			printf("Enter size of tree\n");
+			scanf("%d",&n);
+			for(int i=0;i<n;i++)
+			{
+				scanf("%d",&ele);
+				root=insert(root,ele);
+			}
+			printing(root);
+		}
+		if(ch==2)
+		{
+			scanf("%d",&ele);
+		//	del(root,ele);
+		}
+	}
+	//printing tree
+	printing(root);
+	return 0;
+}
+
+struct st *insert(struct st *curr,int ele)
+{
+	if(curr==NULL)
+	{
+		curr=(struct st *)malloc(sizeof(struct st));
+		
+			curr->data=ele;
+			curr->ryt=curr->left=NULL;
+	}
+	else
+	{
+		if(ele>curr->data)
+		curr->ryt=insert(curr->ryt,ele);
+		else if(ele<curr->data)
+		curr->left=insert(curr->left,ele);
+	}
+	return curr;
+}
+void printing(struct st *curr)
+{
+	if(curr)
+	{
+		printf("%d\n",curr->data);
+		printing(curr->left);
+		printing(curr->ryt);
+	}
+}
