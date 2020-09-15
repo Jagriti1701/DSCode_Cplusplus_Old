@@ -1,0 +1,15 @@
+//Will not work if any of the number is zero. As their product will e zero
+#include <stdio.h>
+int main()
+{
+  int x = 6, y = 7;
+ 
+  // Code to swap 'x' and 'y'
+  x = x * y;  // x now becomes 42
+  y = x / y;  // y becomes 6
+  x = x / y;  // x becomes 7
+ 
+  printf("After Swapping: x = %d, y = %d", x, y);
+ 
+  return 0;
+}
