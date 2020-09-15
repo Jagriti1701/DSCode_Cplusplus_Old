@@ -1,0 +1,48 @@
+//T(n)=O(n) and space complexity=O(1)
+#include<stdio.h>
+#include<malloc.h>
+struct node 
+{
+	int data;
+	struct node *next;
+}*start,*p1,*p2,*q,*li;
+
+void loop()
+{
+	p1=p2=li;
+	while(p1!=p2)
+	{
+		p1=p1->next->next;
+		p2=p2->next;
+	}
+	printf("Loop found");
+}
+
+void create_loop(int ele)
+{
+	q=(struct node*)malloc(sizeof(struct node));
+	q->data=ele;
+	q->next=NULL;
+	if(start==NULL)
+	{start=q;}
+	else
+	{
+	li=start;
+	while(li->next)
+		li=li->next;
+	li->next=q;
+	}
+
+}
+int main()
+{
+	start=NULL;
+	create_loop(2);
+	create_loop(4);
+	create_loop(8);
+	create_loop(16);
+	create_loop(32);
+	printf("11");
+	start->next->next->next->next=li->next;
+	loop();
+}
