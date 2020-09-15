@@ -1,0 +1,169 @@
+// single link list
+
+#include<stdio.h>
+#include<malloc.h>
+void create(int item);
+void insert_beg(int item);
+int insert_bw(int item, int pos);
+int del(int item);
+int display();
+struct node
+{
+	int info;
+	struct node *link;
+}*start;
+int main()
+{
+	int ch1=1,ch,i,n,item;
+	while(ch1==1)
+	{
+		printf("Press : \n");
+		printf("1. For creating a list\n");
+		printf("2. For inserting an element in begining\n");
+		printf("3. For inserting an element in between\n");
+		printf("4. For deleting an element\n");
+		printf("5. For display\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1: start=NULL;
+					printf("Enter size of list :  ");
+					scanf("%d",&n);
+					printf("\n");
+					for(i=1;i<=n;i++)
+					{
+						printf("Enter a element to be inserted :  ");
+						scanf("%d",&item);
+						printf("\n");
+						create(item);
+					}
+					break;
+					
+			case 2: printf("Enter a element to be inserted :  ");
+					scanf("%d",&item);
+					printf("\n");
+					insert_beg(item);
+					break;
+						
+			case 3: printf("Enter a element to be inserted :  ");
+					scanf("%d",&item);
+					printf("\n");
+					printf("Enter position after which you want to add an element : ");
+					scanf("%d",&n);
+					printf("\n");
+					insert_bw(item,n);
+					break;
+					
+			case 4: printf("Enter element you want to delete : ");
+					scanf("%d",&item);
+					printf("\n");
+					del(item);
+					break;
+					
+			case 5: display();
+					break;
+					
+			default:printf("wrong choice\n");
+		}
+		printf("Do you want to continue? \nPress 1. for Yes and 2. for No");
+		printf("\n");
+		scanf("%d",&ch1);			
+	}
+	return 0;
+}
+ void create(int item)
+{
+	struct node *li,*tmp;
+	tmp=(struct node *)malloc(sizeof(struct node));
+	tmp->link=NULL;
+	tmp->info=item;
+	if(start==NULL)
+	{
+		start=tmp;
+	}
+	else
+	{
+		li=start;
+		while(li->link!=NULL)
+		li=li->link;
+		li->link=tmp;
+	}
+}
+ void insert_beg(int item)
+{
+	struct node *tmp;
+	tmp=(struct node *)malloc(sizeof(struct node));
+	tmp->link=start;
+	tmp->info=item;
+	start=tmp;
+}
+int insert_bw(int item, int pos)
+{
+	struct node *tmp,*li;
+	int i;
+	li=start;
+	tmp=(struct node *)malloc(sizeof(struct node));
+	for(i=1;i<pos;i++)
+	{
+		li=li->link;
+		if(li==NULL)
+		{
+			printf("List size is less than %d \n",pos);
+			return 0;
+		}
+	}
+	tmp->info=item;
+	tmp->link=li->link;
+	li->link=tmp;
+	return 0;
+}
+ int del(int item)
+{
+	struct node *tmp,*li;
+	tmp=(struct node *)malloc(sizeof(struct node));
+	if(start->info==item)
+	{
+		tmp=start;
+		start=tmp->link;
+		free(tmp);
+		return 0;
+	}
+	li=start;
+	while(li->link->link!=NULL)
+	{
+		if(li->link->info==item)
+		{
+			tmp=li->link;
+			li->link=tmp->link;
+			free(tmp);
+			return 0;
+		}
+		li=li->link;
+	}
+	if(li->link->info==item)
+	{
+		tmp=li->link;
+		free(tmp);
+		li->link=NULL;
+		return 0;
+	}
+	printf("Element not found");
+	return 0;
+}
+int display()
+{
+	struct node *li;
+	if(start==NULL)
+	{
+		printf("List is empty\n");
+		return 0;
+    }
+	li=start;
+	printf("Items in list are : \n");
+	while(li!=NULL)
+	{
+		printf("%d\n",li->info);
+		li=li->link;
+	}
+	return 0;
+}
