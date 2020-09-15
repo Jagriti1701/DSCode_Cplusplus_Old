@@ -1,0 +1,81 @@
+//O(n) time complexity with no extraa space
+
+#include<stdio.h>
+#include<malloc.h>
+struct node 
+{
+	int data;
+	struct node *next;
+}*start1,*start2,*li,*x,*q;
+
+int find_intersection()
+{
+	int l1,l2,d;
+	l1=l2=0;
+	q=start1;
+	while(q->next!=NULL)
+	{
+		l1++;
+		q=q->next;
+	}
+	q=start2;
+	while(q->next)
+	{
+		l2++;
+		q=q->next;
+	}
+	d=l1>l2?(l1-l2):(l2-l1);
+	if(l1>l2)
+	{
+		q=start1;
+		li=start2;
+	}
+	else
+	{
+		q=start2;
+		li=start1;
+	}
+	while(d--)
+	q=q->next;
+	while(q!=li)
+	{
+		q=q->next;
+		li=li->next;
+	}
+	printf("Intersection point%d %d",q->data,li->data);
+}
+
+int main()
+{
+	int ch,i;
+	start1=(struct node*) malloc(sizeof(struct node));
+	start2=(struct node*) malloc(sizeof(struct node));
+	start1->data=1;
+	start1->next=NULL;
+	q=start1;
+	for(i=1;i<=5;i++)
+	{
+		li=(struct node*) malloc(sizeof(struct node));
+		li->data=i*2;
+		li->next=NULL;
+		if(i==3)
+		x=li;
+		q->next=li;
+		q=q->next;
+	}
+	start2->data=0;
+	start2->next=NULL;
+	q=start2;
+	for(i=1;i<=7;i++)
+	{
+		li=(struct node*) malloc(sizeof(struct node));
+		li->data=i+3;
+		li->next=NULL;
+		if(i==4)
+		{q->next=x;q=q->next;}
+		q->next=li;
+		q=q->next;
+	}
+	find_intersection();
+	return 0;
+}
